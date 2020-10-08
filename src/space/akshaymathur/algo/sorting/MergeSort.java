@@ -2,16 +2,7 @@ package space.akshaymathur.algo.sorting;
 
 import java.util.Arrays;
 
-public class MergeSort {
-
-    public static void sort(Comparable[] arr){
-        int N = arr.length;
-        Comparable[] aux = new Comparable[N];
-        for(int sz = 1; sz < N; sz += sz){
-            for(int lo = 0; lo < N - sz; lo += sz + sz)
-                merge(arr, lo, lo+sz-1, Math.min(lo+sz+sz - 1, N - 1),aux);
-        }
-    }
+public class MergeSort implements Sorting {
 
     public static void recursiveSort(Comparable[] arr){
         int lo = 0, hi = arr.length - 1;
@@ -29,9 +20,7 @@ public class MergeSort {
     }
 
     private static void merge(Comparable[] arr, int lo, int mid, int hi, Comparable[] aux) {
-        for(int k = lo; k <= hi; k++){
-            aux[k] = arr[k];
-        }
+        System.arraycopy(arr,lo,aux,lo,hi - lo + 1);
         int i = lo, j = mid + 1;
         for( int k = lo; k <= hi; k ++){
             if(i > mid ) arr[k] = aux[j++];
@@ -45,24 +34,18 @@ public class MergeSort {
         return a.compareTo(b) < 0;
     }
 
-    public static boolean isSorted(Comparable[] arr){
-        for(int i = 1; i < arr.length; i++){
-           if(less(arr[i],arr[i -1])) {
-               return false;
-           }
-        }
-        return true;
+    @Override
+    public String name() {
+        return "Merge Sort";
     }
 
-    public static void main(String... s) {
-        Integer[] arr = new Integer[]{5, 4, 6, 3, 7, 2, 8, 1, 9};
-        assert (!isSorted(arr));
-        recursiveSort(arr);
-        assert (isSorted(arr));
-
-        Integer[] arr1 = new Integer[]{5, 4, 6, 3, 7, 2, 8, 1, 9};
-        assert (!isSorted(arr1));
-        sort(arr1);
-        assert (isSorted(arr1));
+    @Override
+    public void sort(Comparable[] arr){
+        int N = arr.length;
+        Comparable[] aux = new Comparable[N];
+        for (int sz = 1; sz < N; sz += sz) {
+            for (int lo = 0; lo < N - sz; lo += sz + sz)
+                MergeSort.merge(arr, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, N - 1), aux);
+        }
     }
 }

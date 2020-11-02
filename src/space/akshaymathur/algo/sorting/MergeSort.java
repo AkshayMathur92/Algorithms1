@@ -47,5 +47,6 @@ public class MergeSort implements Sorting {
             for (int lo = 0; lo < N - sz; lo += sz + sz)
                 MergeSort.merge(arr, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, N - 1), aux);
         }
+//        recursiveSort(arr);
     }
 }

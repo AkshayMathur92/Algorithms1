@@ -21,6 +21,7 @@ public class PointSET {
         pointset.add(p);
     }              // add the point to the set (if it is not already in the set)
     public           boolean contains(Point2D p){
+        checkNul(p);
         return pointset.contains(p);
     }           // does the set contain point p?
     public              void draw(){

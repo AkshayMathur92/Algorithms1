@@ -39,14 +39,14 @@ public class RangeSearchVisualizer {
         boolean isDragging = false;     // is the user dragging a rectangle
 
         // draw the points
-        StdDraw.clear();
+        StdDraw.setCanvasSize(1024, 1024);
+        StdDraw.setScale(0,1);
         StdDraw.setPenColor(StdDraw.BLACK);
         StdDraw.setPenRadius(0.01);
+        StdDraw.enableDoubleBuffering();
         brute.draw();
-        StdDraw.show();
 
         // process range search queries
-        StdDraw.enableDoubleBuffering();
         while (true) {
 
             // user starts to drag a rectangle
@@ -71,7 +71,10 @@ public class RangeSearchVisualizer {
             StdDraw.clear();
             StdDraw.setPenColor(StdDraw.BLACK);
             StdDraw.setPenRadius(0.01);
-            brute.draw();
+//            brute.draw();
+            kdtree.draw();
+            StdDraw.textLeft(x0,y0,x0 +" " + y0);
+            StdDraw.textLeft(x1,y1,x1 +" " + y1);
 
             // draw the rectangle
             RectHV rect = new RectHV(Math.min(x0, x1), Math.min(y0, y1),
@@ -93,7 +96,7 @@ public class RangeSearchVisualizer {
                 p.draw();
 
             StdDraw.show();
-            StdDraw.pause(20);
+            StdDraw.pause(50);
         }
     }
 }

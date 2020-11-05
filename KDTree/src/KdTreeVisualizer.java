@@ -11,9 +11,8 @@
 import edu.princeton.cs.algs4.*;
 
 public class KdTreeVisualizer {
-
     public static void main(String[] args) {
-        RectHV rect = new RectHV(0.0, 0.0, 1.0, 1.0);
+        StdDraw.setScale(0,1);
         StdDraw.enableDoubleBuffering();
         KdTree kdtree = new KdTree();
         String filename = args[0];
@@ -22,14 +21,15 @@ public class KdTreeVisualizer {
             double x = in.readDouble();
             double y = in.readDouble();
             Point2D p = new Point2D(x, y);
+            p.draw();
             kdtree.insert(p);
+            assert (kdtree.contains(p));
         }
         StdDraw.setPenRadius(0.01);
         while (true) {
             kdtree.draw();
             StdDraw.show();
-            StdDraw.pause(20);
+            StdDraw.pause(200);
         }
-
     }
 }

@@ -67,11 +67,11 @@ public class BitonicArray {
     }
 
     private static int binarySearchDecending(int start, int end, int target, int[] nums) {
-        return Arrays.binarySearch(IntStream.of(nums).boxed().toArray(Integer[]::new), start, end + 1, target , Comparator.reverseOrder());
+        return Arrays.binarySearch(nums, start, end + 1, target , Comparator.reverseOrder());
     }
 
-    private static int binarySearchAscending(int start, int mid, int target, int[] nums) {
-        return Arrays.binarySearch(nums, start, mid + 1, target);
+    private static int binarySearchAscending(int start, int end, int target, int[] nums) {
+        return Arrays.binarySearch(nums, start, end + 1, target);
     }
 
 }

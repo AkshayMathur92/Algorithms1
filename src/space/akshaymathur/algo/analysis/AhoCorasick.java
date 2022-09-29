@@ -78,19 +78,19 @@ public class AhoCorasick {
         private String stringTillHere;
         private boolean isLeaf;
 
+        public Node(Character character, String stringTillHere) {
+            this.character = character;
+            this.children = new Node[26];
+            this.stringTillHere = stringTillHere;
+            this.isLeaf = true;
+        }
+
         public boolean isLeaf() {
             return isLeaf;
         }
 
         public String getStringTillHere() {
             return stringTillHere;
-        }
-
-        public Node(Character character, String stringTillHere) {
-            this.character = character;
-            this.children = new Node[26];
-            this.stringTillHere = stringTillHere;
-            this.isLeaf = true;
         }
 
         public Node getFailureLink() {
@@ -132,7 +132,7 @@ public class AhoCorasick {
     }
 
     public void printTree() {
-        printTree(root, 0);
+        printTree(root, /* indent= */0);
         System.out.println();
     }
 
@@ -146,20 +146,22 @@ public class AhoCorasick {
         }
     }
 
-    public List<String> findAllSubstrings(String s){
+    public List<String> findAllSubstrings(String s) {
         Node parent = root;
         List<String> substrings = new ArrayList<>();
         int index = 0;
         char[] str = s.toCharArray();
-        while(index < s.length()){
+        while (index < s.length()) {
             char c = str[index];
-            if(parent.isLeaf()){
+            if (parent.isLeaf()) {
                 substrings.add(parent.getStringTillHere());
             }
-            if(parent.containsChild(c)){
+            if (parent.containsChild(c)) {
                 parent = parent.getChild(c);
                 index++;
-            }else{
+            } else if (parent == root) {
+                break;
+            } else {
                 parent = parent.getFailureLink();
             }
         }
@@ -170,8 +172,10 @@ public class AhoCorasick {
         List<String> dictionary = List.of("acc", "atc", "cat", "gcg");
         AhoCorasick ahoCorasick = new AhoCorasick(dictionary);
         ahoCorasick.printTree();
-        for(String subString:  ahoCorasick.findAllSubstrings("gcatcg"))
-        {
+        for (String subString : ahoCorasick.findAllSubstrings("gcatcg")) {
+            System.out.println(subString);
+        }
+        for (String subString : ahoCorasick.findAllSubstrings("train")) {
             System.out.println(subString);
         }
     }
